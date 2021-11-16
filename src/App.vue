@@ -22,3 +22,9 @@ export default {
   }),
 };
 </script>
+
+<style>
+.v-application {
+  font-family: 'Open Sans', sans-serif !important;
+}
+</style>
