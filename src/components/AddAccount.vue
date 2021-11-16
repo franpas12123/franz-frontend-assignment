@@ -50,11 +50,17 @@
                 <font-awesome-icon class="icon" icon="key" />
                 <v-text-field
                   v-model="password"
+                  :rules="passwordRules"
                   :type="showPassword ? 'text' : 'password'"
                   label="Password"
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="showPassword = !showPassword"
                 ></v-text-field>
+                <password
+                  :class="password ? 'passwordError' : ''"
+                  v-model="password"
+                  :strength-meter-only="true"
+                />
               </div>
             </v-col>
           </v-row>
@@ -71,9 +77,11 @@
 </template>
 
 <script>
+import Password from 'vue-password-strength-meter';
 export default {
   name: 'AddAccount',
 
+  components: { Password },
   data() {
     return {
       profilePic: '',
@@ -86,6 +94,7 @@ export default {
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
+      passwordRules: [(v) => !!v || 'Password is required'],
     };
   },
   methods: {
@@ -111,5 +120,8 @@ export default {
 }
 .inputField {
   margin-left: 24px;
+}
+.passwordError {
+  margin-top: -28px !important;
 }
 </style>
