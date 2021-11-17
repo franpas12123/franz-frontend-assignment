@@ -6,6 +6,12 @@
       </div>
 
       <v-spacer></v-spacer>
+      <div>
+        <v-btn href="https://github.com/franpas12123" text>
+          <v-icon>mdi-github</v-icon>
+          Github
+        </v-btn>
+      </div>
     </v-app-bar>
 
     <v-main>
@@ -22,9 +28,3 @@ export default {
   }),
 };
 </script>
-
-<style>
-.v-application {
-  font-family: 'Open Sans', sans-serif !important;
-}
-</style>
