@@ -29,9 +29,10 @@
         </v-btn>
       </div>
     </v-container>
-    <v-divider class="mt-3"></v-divider>
+    <v-divider class="mt-3 mx-16"></v-divider>
+    <v-divider class="mx-16"></v-divider>
     <v-container>
-      <h1>Gallery</h1>
+      <h1 class="my-3">Gallery</h1>
       <v-row>
         <v-col v-for="n in 9" :key="n" class="d-flex child-flex" cols="4">
           <v-card elevation="5">
@@ -39,6 +40,7 @@
               :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
               :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
               aspect-ratio="1"
+              max-height="400"
               class="grey lighten-2"
             >
               <template v-slot:placeholder>
