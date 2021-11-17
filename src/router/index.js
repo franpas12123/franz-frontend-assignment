@@ -16,6 +16,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../components/EditAccount.vue'),
   },
+  { path: '/:pathMatch(.*)*', redirect: '/' },
 ];
 
 const router = new VueRouter({
