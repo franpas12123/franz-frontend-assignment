@@ -7,3 +7,13 @@
   background-color: #191919 !important;
   color: #fff !important;
 }
+
+.custom-btn-accent {
+  background-color: #54d6c0 !important;
+  color: #fff !important;
+}
+
+.custom-btn-danger {
+  background-color: #fab9bb !important;
+  color: #fff !important;
+}
