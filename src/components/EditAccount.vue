@@ -19,71 +19,75 @@
     <v-card class="rounded-xl">
       <v-container class="pa-4 pt-10">
         <v-card-text>
-          <v-row>
-            <v-col cols="12" sm="6">
-              <div class="inputField">
-                <font-awesome-icon class="icon" icon="user" />
-                <v-text-field
-                  v-model="firstName"
-                  label="First Name"
-                  autocomplete="false"
-                  :append-icon="firstName ? 'mdi-close' : ''"
-                  @click:append="clearFirstName"
-                >
-                </v-text-field>
-              </div>
-            </v-col>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <div class="inputField">
+                  <font-awesome-icon class="icon" icon="user" />
+                  <v-text-field
+                    v-model="firstName"
+                    :rules="nameRules"
+                    label="First Name"
+                    autocomplete="false"
+                    :append-icon="firstName ? 'mdi-close' : ''"
+                    @click:append="clearFirstName"
+                  >
+                  </v-text-field>
+                </div>
+              </v-col>
 
-            <v-col cols="12" sm="6">
-              <div class="inputField">
-                <font-awesome-icon class="icon" icon="user" />
-                <v-text-field
-                  v-model="lastName"
-                  label="Last Name"
-                  autocomplete="false"
-                  :append-icon="lastName ? 'mdi-close' : ''"
-                  @click:append="clearLastName"
-                ></v-text-field>
-              </div>
-            </v-col>
-          </v-row>
+              <v-col cols="12" sm="6">
+                <div class="inputField">
+                  <font-awesome-icon class="icon" icon="user" />
+                  <v-text-field
+                    v-model="lastName"
+                    :rules="nameRules"
+                    label="Last Name"
+                    autocomplete="false"
+                    :append-icon="lastName ? 'mdi-close' : ''"
+                    @click:append="clearLastName"
+                  ></v-text-field>
+                </div>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="12" sm="6">
-              <div class="inputField">
-                <font-awesome-icon class="icon" icon="at" />
-                <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  label="Email"
-                  autocomplete="false"
-                  :append-icon="email ? 'mdi-close' : ''"
-                  @click:append="clearEmail"
-                ></v-text-field>
-              </div>
-            </v-col>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <div class="inputField">
+                  <font-awesome-icon class="icon" icon="at" />
+                  <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    label="Email"
+                    autocomplete="false"
+                    :append-icon="email ? 'mdi-close' : ''"
+                    @click:append="clearEmail"
+                  ></v-text-field>
+                </div>
+              </v-col>
 
-            <v-col cols="12" sm="6">
-              <div class="inputField">
-                <font-awesome-icon class="icon" icon="key" />
-                <v-text-field
-                  v-model="password"
-                  :rules="passwordRules"
-                  :type="showPassword ? 'text' : 'password'"
-                  label="Password"
-                  autocomplete="false"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="showPassword = !showPassword"
-                ></v-text-field>
-                <password
-                  v-if="password"
-                  :class="password ? 'passwordError' : ''"
-                  v-model="password"
-                  :strength-meter-only="true"
-                />
-              </div>
-            </v-col>
-          </v-row>
+              <v-col cols="12" sm="6">
+                <div class="inputField">
+                  <font-awesome-icon class="icon" icon="key" />
+                  <v-text-field
+                    v-model="password"
+                    :rules="passwordRules"
+                    :type="showPassword ? 'text' : 'password'"
+                    label="Password"
+                    autocomplete="false"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                  ></v-text-field>
+                  <password
+                    v-if="password"
+                    :class="password ? 'passwordError' : ''"
+                    v-model="password"
+                    :strength-meter-only="true"
+                  />
+                </div>
+              </v-col>
+            </v-row>
+          </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-end">
           <v-btn
@@ -121,7 +125,9 @@ export default {
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
       passwordRules: [(v) => !!v || 'Password is required'],
+      nameRules: [(v) => !!v || 'Required'],
       editing: false,
+      valid: false,
     };
   },
   created() {
@@ -142,10 +148,13 @@ export default {
       this.email = '';
     },
     save() {
+      this.$refs.form.validate();
       const { firstName, lastName, email, password } = this;
-      const newAcc = { firstName, lastName, email, password };
-      this.editProfile(newAcc);
-      this.$router.push({ name: 'Home' });
+      if (email && password && firstName && lastName) {
+        const newAcc = { firstName, lastName, email, password };
+        this.editProfile(newAcc);
+        this.$router.push({ name: 'Home' });
+      }
     },
     resetForm() {
       this.clearFirstName();
