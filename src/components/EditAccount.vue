@@ -1,8 +1,23 @@
 <template>
-  <v-container>
-    <v-card>
-      <v-container class="pa-4">
-        <v-card-title><strong>Add Account</strong></v-card-title>
+  <v-container class="mt-5">
+    <div class="gravatar-container mb-n10 ml-5 d-flex">
+      <v-gravatar
+        :class="`rounded-xl ${$vuetify.breakpoint.xs ? 'mx-auto' : ''}`"
+        :email="email"
+        :size="150"
+        default-img="mm"
+      />
+      <div class="" v-if="$vuetify.breakpoint.smAndUp">
+        <div class="mx-5 mt-5">
+          <h1>
+            <strong>{{ firstName }} {{ lastName }}</strong>
+          </h1>
+          <h4 class="font-weight-light">{{ email }}</h4>
+        </div>
+      </div>
+    </div>
+    <v-card class="rounded-xl">
+      <v-container class="pa-4 pt-10">
         <v-card-text>
           <v-row>
             <v-col cols="12" sm="6">
@@ -57,6 +72,7 @@
                   @click:append="showPassword = !showPassword"
                 ></v-text-field>
                 <password
+                  v-if="password"
                   :class="password ? 'passwordError' : ''"
                   v-model="password"
                   :strength-meter-only="true"
@@ -65,10 +81,17 @@
             </v-col>
           </v-row>
         </v-card-text>
-        <v-card-actions>
-          <v-btn color="accent" :block="$vuetify.breakpoint.name == 'xs' ? true : false">
-            <font-awesome-icon class="icon mr-2" icon="user-plus" />
-            submit
+        <v-card-actions class="d-flex justify-end">
+          <v-btn
+            class="custom-btn-danger mr-3"
+            @click="$router.push({ name: 'Home' })"
+            fab
+            depressed
+          >
+            <font-awesome-icon class="icon" icon="times" />
+          </v-btn>
+          <v-btn class="custom-btn-accent" @click="save()" fab depressed>
+            <font-awesome-icon class="icon" icon="check" />
           </v-btn>
         </v-card-actions>
       </v-container>
@@ -78,13 +101,12 @@
 
 <script>
 import Password from 'vue-password-strength-meter';
+import { mapActions } from 'vuex';
 export default {
-  name: 'AddAccount',
-
+  name: 'EditAccount',
   components: { Password },
   data() {
     return {
-      profilePic: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -95,9 +117,17 @@ export default {
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
       passwordRules: [(v) => !!v || 'Password is required'],
+      editing: false,
     };
   },
+  created() {
+    const { firstName, lastName, email } = this.$store.getters.profile;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+  },
   methods: {
+    ...mapActions(['editProfile']),
     clearFirstName() {
       this.firstName = '';
     },
@@ -106,6 +136,18 @@ export default {
     },
     clearEmail() {
       this.email = '';
+    },
+    save() {
+      const { firstName, lastName, email, password } = this;
+      const newAcc = { firstName, lastName, email, password };
+      this.editProfile(newAcc);
+      this.$router.push({ name: 'Home' });
+    },
+    resetForm() {
+      this.clearFirstName();
+      this.clearLastName();
+      this.clearEmail();
+      this.password = '';
     },
   },
 };
