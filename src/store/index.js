@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import accounts from './modules/accounts';
+import profile from './modules/profile';
 
 Vue.use(Vuex);
 
 const modules = {
-  accounts,
+  profile,
 };
 
 export default new Vuex.Store({
