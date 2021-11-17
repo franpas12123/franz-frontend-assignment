@@ -17,3 +17,7 @@
   background-color: #fab9bb !important;
   color: #fff !important;
 }
+
+.gravatar-container img {
+  z-index: 2;
+}
