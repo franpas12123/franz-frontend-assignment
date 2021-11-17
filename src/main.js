@@ -7,6 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faKey, faUserPlus, faAt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Gravatar from 'vue-gravatar';
+import './assets/css/main.css';
 
 library.add(faUser, faKey, faUserPlus, faAt);
 
