@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app color="#54D6C0">
       <div class="d-flex align-center">
-        <strong>VIRTUSIZE</strong>
+        <strong>VIRTUSIZE FE ASSIGNMENT</strong>
       </div>
 
       <v-spacer></v-spacer>
