@@ -26,6 +26,7 @@
                 <v-text-field
                   v-model="firstName"
                   label="First Name"
+                  autocomplete="false"
                   :append-icon="firstName ? 'mdi-close' : ''"
                   @click:append="clearFirstName"
                 >
@@ -39,6 +40,7 @@
                 <v-text-field
                   v-model="lastName"
                   label="Last Name"
+                  autocomplete="false"
                   :append-icon="lastName ? 'mdi-close' : ''"
                   @click:append="clearLastName"
                 ></v-text-field>
@@ -54,6 +56,7 @@
                   v-model="email"
                   :rules="emailRules"
                   label="Email"
+                  autocomplete="false"
                   :append-icon="email ? 'mdi-close' : ''"
                   @click:append="clearEmail"
                 ></v-text-field>
@@ -68,6 +71,7 @@
                   :rules="passwordRules"
                   :type="showPassword ? 'text' : 'password'"
                   label="Password"
+                  autocomplete="false"
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="showPassword = !showPassword"
                 ></v-text-field>
