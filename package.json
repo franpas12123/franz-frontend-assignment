@@ -13,6 +13,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-gravatar": "^1.4.1",
     "vue-password-strength-meter": "^1.7.2",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",
